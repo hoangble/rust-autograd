@@ -31,7 +31,8 @@ autograd-rs/
 
 ## Scheduling Rules
 
-**Weekday evenings (1–1.5 hrs):** Reading, Exercism exercises, small isolated experiments.
+**Weekday evenings (1–1.5 hrs):** Reading, small isolated experiments, or a targeted
+Exercism/Rustlings exercise if a specific concept from the project isn't clicking.
 Not for half-finished implementations — too easy to lose context overnight.
 
 **Weekends (3–4 hrs per day):** Project construction. Saturday builds, Sunday consolidates
@@ -40,6 +41,10 @@ Not for half-finished implementations — too easy to lose context overnight.
 **The one hard rule:** Never leave a half-finished implementation to a weekday evening.
 Always reach a stable checkpoint before closing your laptop — it compiles, the failing test
 has a clear next step in a comment, and SESSION.md is updated.
+
+**On exercises:** Exercism and Rustlings are relief valves, not a parallel curriculum.
+Reach for them only when a specific concept from the project isn't clicking — "I don't
+understand why this borrow fails." If the project is moving, skip them entirely.
 
 ---
 
@@ -60,7 +65,7 @@ re-orientation. This habit is load-bearing on an open-ended schedule.
 | Resource | Role |
 |---|---|
 | [The Rust Book](https://doc.rust-lang.org/book/) | Primary reference, weeks 1–2 |
-| [Rustlings](https://github.com/rust-lang/rustlings) | Short exercises for low-energy evenings |
+| [Rustlings](https://rustlings.rust-lang.org/) | Short compiler-fix exercises, mirrors Book chapters exactly — evenings |
 | [Exercism Rust track](https://exercism.org/tracks/rust) | Targeted exercises per phase (see below) |
 | [micrograd](https://github.com/karpathy/micrograd) | Read once before Phase 2. Then close it. |
 | [Rust for Rustaceans](https://nostarch.com/rust-rustaceans) | Read ch.1 after Phase 3 |
@@ -92,18 +97,6 @@ the book to the relevant section. The compiler error is the reading prompt.
 
 **Exit criterion:** You can write a struct with methods, pass references without compiler
 errors, and explain ownership to yourself out loud.
-
-### Exercism Targets
-Do these in order, one or two per evening:
-- `hello-world` — Cargo basics
-- `rpn-calculator` — Enums, match, stack logic
-- `matrix` — Vec<Vec<T>>, indexing, borrowing
-- `clock` — Structs, impl, operator overloading
-- `accumulate` — Closures, iterators
-- `forth` — Complex enums, error handling
-- `robot-simulator` — Structs, enums, methods combined
-
-After submitting each exercise, read two community solutions.
 
 ### Day 1 — Proto-Value struct and first ownership error
 
@@ -159,6 +152,9 @@ Store it in `Value`. Write a `match` that prints what operation produced each no
 
 > You've now discovered the exact problem that `Rc<RefCell<>>` solves — organically.
 
+> **If structs or enums feel shaky:** Rustlings `structs` (1–3) and `enums` (1–3) are
+> 10-minute isolated fixes. Do one, return to the project.
+
 ### Day 3 — Fight the borrow checker on purpose
 
 Read Book chapter 4 *first* today. Then do these exercises in order:
@@ -187,6 +183,9 @@ println!("{}", r.data);
 Fix each one. Write a comment explaining *why* each fix works. Don't move on until you can
 predict whether code will compile before running it.
 
+> **If any of these don't click after one attempt:** Rustlings `move_semantics` (1–6)
+> isolates exactly these three failure modes with minimal noise. Do them, then return.
+
 ### Day 4 — Define a Forward trait and implement it
 
 Read Book chapters 10.1–10.2. Then build:
@@ -210,6 +209,9 @@ three types. Iterate over it calling `.forward()`.
 
 Then overload `+`: implement `std::ops::Add` for `AddNode`. Notice the signature consumes
 both operands. Try `impl Add for &AddNode` instead.
+
+> **If trait syntax is unfamiliar:** Exercism `clock` uses operator overloading in a
+> contained problem. Rustlings `traits` (1–3) are even shorter. Either works.
 
 ### Day 5 — Write a backward closure and box it
 
@@ -271,6 +273,10 @@ Then write a hardcoded XOR dataset returning the same type — this is what week
 Read Book chapter 13 (closures and iterators). Practice chaining
 `.iter().filter().map().collect()`.
 
+> **If iterator chaining or error propagation feel mechanical:** Rustlings `iterators`
+> (1–3) and `error_handling` (1–3) are good evening exercises. Stop when it clicks,
+> not when the list is done.
+
 ### Day 7 — Wire it together: hand-traced computation
 
 Don't read anything new.
@@ -295,12 +301,6 @@ comments.
 
 **Exit criterion:** `let c = &a * &b; backward(&c);` correctly updates `a.grad` and
 `b.grad`, confirmed by a passing `#[test]`.
-
-### Exercism Targets
-- `circular-buffer` — do this before *and* after building ValueRef. It's the most
-  relevant exercise in the whole track.
-- `simple-linked-list` — ownership, `Option<Box<T>>`
-- `rectangles` — 2D iteration, lifetime intuition
 
 ### Day 8 — Design the Value struct properly, hit the graph problem
 
@@ -348,6 +348,11 @@ closure that mutates `grad` through the `Rc<RefCell<>>`. Confirm gradients updat
 
 > By end of this session you should have a working `ValueRef = Rc<RefCell<Value>>` with
 > actual gradient mutation through shared references.
+
+> **If `Rc` or `RefCell` aren't making sense:** Rustlings `smart_pointers` (1–4) isolates
+> `Box`, `Rc`, and `RefCell` in sequence. This is the one Rustlings section most worth
+> doing proactively — the concepts map directly to `ValueRef`. Exercism `circular-buffer`
+> is the Exercism equivalent and worth doing before *and* after this day.
 
 ### Day 10 — Implement Add and Mul on ValueRef
 
@@ -406,6 +411,9 @@ Read Book chapter 8 (collections) while working with `HashSet` and `Vec`.
 
 Test on a hand-built graph. Verify the output order by printing labels.
 
+> **If `HashSet` usage feels unfamiliar:** Rustlings `hashmaps` (1–2) covers the
+> collection API quickly. One exercise is usually enough.
+
 ### Day 12 — A working .backward() method
 
 Add a `backward()` function that:
@@ -436,6 +444,9 @@ Read Book chapter 7 (modules). Practice `pub`, `pub(crate)`, `use`, `mod`.
 
 Add `tanh` as a method. Run `cargo clippy`. Fix every warning.
 
+> **If clippy warnings are confusing:** Rustlings `clippy` (1–3) shows the most common
+> ones in isolation. Ten minutes, then back.
+
 ### Day 14 — Finite difference tests for existing ops
 
 Write proper `#[test]` functions:
@@ -456,6 +467,9 @@ fn test_mul_backward() {
 
 Run `cargo test`. Fix anything that fails. Both `add` and `mul` backward passes should
 be confirmed correct by automated tests before moving to Phase 3.
+
+> **If `#[test]` syntax or assertion macros feel unfamiliar:** Rustlings `tests` (1–2)
+> covers the basics in under 15 minutes.
 
 ---
 
@@ -574,6 +588,10 @@ Trait bounds: `T: Add<Output=T> + Mul<Output=T> + Clone + Zero`
 
 Read Book chapter 10 fully again — after Phase 3, it will read differently.
 
+> **When trait bound errors pile up:** Rustlings `generics` and `lifetimes` (1–3 each)
+> read completely differently here than they did in Phase 1. Worth revisiting if the
+> compiler errors stop making sense.
+
 ### What changes
 
 - Element-wise ops generalize directly from scalar
@@ -629,31 +647,39 @@ already been playing.
 
 ---
 
-## Exercism Quick Reference
+## Exercise Quick Reference
 
-| Exercise | Phase | Concept |
-|---|---|---|
-| `hello-world` | 1 | Cargo basics |
-| `rpn-calculator` | 1 | Enums, match, stack |
-| `matrix` | 1 | Vec<Vec<T>>, borrowing |
-| `clock` | 1 | Structs, operator overloading |
-| `accumulate` | 1 | Closures, iterators |
-| `forth` | 1 | Complex enums, error handling |
-| `robot-simulator` | 1 | Structs + enums combined |
-| `circular-buffer` | 2 | RefCell, interior mutability |
-| `simple-linked-list` | 2 | Ownership, Option<Box<T>> |
-| `rectangles` | 2 | Lifetime intuition |
+Reach for these when a specific concept isn't clicking. Stop when it clicks — the list
+is a menu, not a checklist.
 
-> Do `circular-buffer` before *and* after building `ValueRef`. It's a different
-> exercise once you've seen why `RefCell` exists in a real project.
+| Exercise | Source | Concept | Reach for it when... |
+|---|---|---|---|
+| `rpn-calculator` ✓ | Exercism | Enums, match, stack | — done |
+| `structs` (1–3) | Rustlings | Struct syntax | Day 1–2 feel shaky |
+| `enums` (1–3) | Rustlings | Enum + match | Day 2 Op enum unclear |
+| `move_semantics` (1–6) | Rustlings | Ownership, borrows | Day 3 errors don't make sense |
+| `clock` | Exercism | Operator overloading | Day 4 `impl Add` syntax unclear |
+| `traits` (1–3) | Rustlings | Trait syntax | Day 4 `dyn Forward` unclear |
+| `error_handling` (1–3) | Rustlings | `Result`, `?` operator | Day 6 CSV loading unclear |
+| `iterators` (1–3) | Rustlings | Iterator chains | Day 6 `.map().collect()` unclear |
+| `circular-buffer` | Exercism | `RefCell`, interior mutability | Before *and* after Day 9 |
+| `smart_pointers` (1–4) | Rustlings | `Box`, `Rc`, `RefCell` | Days 8–9 `ValueRef` unclear |
+| `hashmaps` (1–2) | Rustlings | Collection API | Day 11 `HashSet` unclear |
+| `tests` (1–2) | Rustlings | `#[test]`, assertions | Day 14 test syntax unclear |
+| `clippy` (1–3) | Rustlings | Common warnings | Day 13 clippy output confusing |
+| `generics` (1–3) | Rustlings | Generic bounds | Phase 5 trait errors unclear |
+| `lifetimes` (1–3) | Rustlings | Lifetime annotations | Phase 5 borrow errors in generics |
+| `matrix` | Exercism | `Vec<Vec<T>>`, indexing | If 2D iteration ever trips you up |
+| `accumulate` | Exercism | Closures, iterators | If closures feel unfamiliar |
 
 ---
 
 ## Common Failure Modes
 
 **"I read a lot but didn't build anything."**
-Exercism in the evenings is not a substitute for project work on weekends. Reading the
-Book is not building. If a weekend passes without a stable checkpoint, the week was lost.
+Exercism and Rustlings in the evenings are not a substitute for project work on weekends.
+Exercises are for isolating a specific blocker, not for making progress. If a weekend
+passes without a stable checkpoint, the week was lost.
 
 **Losing context between sessions.**
 Read SESSION.md before every session. Write it after every session. Non-negotiable.
