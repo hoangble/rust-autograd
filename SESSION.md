@@ -23,3 +23,13 @@
 
 ### What's next
 - Day 2 exercism.
+
+## Session 3 - day 2 - 2026/04/29
+### What I built/learnt
+- Calculator RPN with stack. Mostly fill in the skeleton code
+
+### What confused me
+- (Rust module system is tied to crate structure, not file paths
+
+### What's next
+- Day 3 weekend — read Book 15.4–15.5, rebuild Value with Rc<RefCell<>>
