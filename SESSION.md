@@ -33,3 +33,16 @@
 
 ### What's next
 - Day 3 weekend — read Book 15.4–15.5, rebuild Value with Rc<RefCell<>>
+
+## Session 4 - day 3 - 2026/05/03
+### What I built/learnt
+- Some small ownership exercise
+  - can't reference something out of scope
+  - one mutable reference at a time
+  - can't refer to a mutable reference with immutable one
+
+### What confused me
+- Nothing
+
+### What's next
+- Day 3 weekend — read Book 15.4–15.5, rebuild Value with Rc<RefCell<>>

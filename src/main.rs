@@ -31,44 +31,33 @@ fn describe(v: &Value) {
     }
 }
 
+fn add_data(v: &Value) -> f64 {
+    v.data
+}
+
 fn main() {
-    let a = Value {
-        data: 2.0,
+    let mut a = Value {
+        data: 1.0,
         label: "a".into(),
         children: vec![],
         op: Op::Leaf,
     };
+
+    let _ = add_data(&a);
+    println!("{}", a.data);
+
+    let r1 = &a; // fix from &mut -> & as there can't be two mutable ref in same scope
+    let r2 = &mut a;
+
+    let r: &Value;
+
     let b = Value {
-        data: 3.0,
+        data: 2.0,
         label: "b".into(),
         children: vec![],
         op: Op::Leaf,
     };
-    let c = Value {
-        data: 5.0,
-        label: "c".into(),
-        children: vec![a, b],
-        op: Op::Add,
-    };
+    r = &b;
 
-    describe(&c);
-
-    // println!("{:?}", c);
-    // print_value(&v);
-    //
-    // let x = Value {
-    // data: 2.0,
-    // label: "x".into(),
-    // children: vec![],
-    // };
-    // let d = Value {
-    //     data: 4.0,
-    //     label: "d".into(),
-    //     children: vec![x.clone()],
-    // };
-    // let e = Value {
-    //     data: 3.0,
-    //     label: "e".into(),
-    //     children: vec![x],
-    // }; // x already moved!
+    println!("r value: {}", r.data) // b is out of scope so r is ref-ing something out of scope
 }
