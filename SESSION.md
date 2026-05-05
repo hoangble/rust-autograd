@@ -46,3 +46,16 @@
 
 ### What's next
 - Day 3 weekend — read Book 15.4–15.5, rebuild Value with Rc<RefCell<>>
+
+
+## Session 5 - day 3 - 2026/05/04
+### What I built/learnt
+- Change of plan: do [Matrix on Exercism](https://exercism.org/tracks/rust/exercises/matrix) instead.
+- How to declare a `Struct` and implement its functions via `Impl`.
+- Learn how to use `map` and `collect`.
+
+### What confused me
+- `into_iter` takes ownership, `iter` doesn't.
+
+### What's next
+- Day 4 - define a `Forward` trait and implement it for `AddNode`, `MulNode`, and `TanhNode`. Then operator overloading with `std::ops::Add`. Read Book chapters 10.1-10.2 first.
