@@ -1,3 +1,10 @@
+mod ops;
+use ops::AddNode;
+use ops::Forward;
+use ops::MulNode;
+use ops::ReLUNode;
+use ops::TanhNode;
+
 #[derive(Debug)]
 struct Value {
     data: f64,
@@ -14,25 +21,12 @@ enum Op {
     Leaf,
 }
 
-fn print_value(v: &Value) {
-    println!("{}: {}", v.label, v.data);
-}
-
-fn describe(v: &Value) {
-    match v.op {
-        Op::Leaf => println!("{} is a leaf input", v.label),
-        Op::Add => println!("{} was produced by addition", v.label),
-        Op::Mul => println!("{} was produced by multiplication", v.label),
-        Op::Tanh => println!("{} was produced by tanh", v.label),
-    }
-
-    for child in &v.children {
-        describe(child);
-    }
-}
-
 fn add_data(v: &Value) -> f64 {
     v.data
+}
+
+fn compute(node: &dyn Forward) -> f64 {
+    node.forward()
 }
 
 fn main() {
@@ -59,5 +53,32 @@ fn main() {
     };
     r = &b;
 
-    println!("r value: {}", r.data) // b is out of scope so r is ref-ing something out of scope
+    // println!("r value: {}", r.data); // b is out of scope so r is ref-ing something out of scope
+
+    let ops_nodes: Vec<Box<dyn Forward>> = vec![
+        Box::new(AddNode {
+            left: 1.0,
+            right: 2.0,
+        }),
+        Box::new(MulNode {
+            left: 1.0,
+            right: 2.0,
+        }),
+        Box::new(TanhNode { input: -1.0 }),
+        Box::new(ReLUNode { input: 1.0 }),
+    ];
+
+    for node in ops_nodes.iter() {
+        println!("fwd value: {}", node.forward());
+    }
+    let new_node = AddNode {
+        left: 1.0,
+        right: 2.0,
+    };
+    let another_node = AddNode {
+        left: 1.0,
+        right: 2.0,
+    };
+    let sum_node = new_node + another_node;
+    print!("{}", sum_node)
 }

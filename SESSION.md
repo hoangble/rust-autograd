@@ -59,3 +59,13 @@
 
 ### What's next
 - Day 4 - define a `Forward` trait and implement it for `AddNode`, `MulNode`, and `TanhNode`. Then operator overloading with `std::ops::Add`. Read Book chapters 10.1-10.2 first.
+
+## Session 6 - day 4 - 2026/05/10
+### What I built/learnt
+- Day 4 - define a `Forward` trait and implement it for `AddNode`, `MulNode`, and `TanhNode`. Then operator overloading with `std::ops::Add`. Read Book chapters 10.1-10.2 first.
+- 
+### What confused me
+- overloading is tricky
+
+### What's next
+- Day 5 - Write a backward closure and box it
