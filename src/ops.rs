@@ -40,9 +40,15 @@ impl Forward for ReLUNode {
 }
 
 impl std::ops::Add for AddNode {
-    type Output = f64 ;
-    fn add(self, rhs: AddNode) -> f64  {
+    type Output = f64;
+    fn add(self, rhs: AddNode) -> f64 {
         self.left + rhs.left + self.right + rhs.right
     }
+}
 
+impl std::ops::Add for &AddNode {
+    type Output = f64;
+    fn add(self, rhs: &AddNode) -> f64 {
+        self.left + rhs.left + self.right + rhs.right
+    }
 }

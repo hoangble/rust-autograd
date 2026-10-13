@@ -63,9 +63,21 @@
 ## Session 6 - day 4 - 2026/05/10
 ### What I built/learnt
 - Day 4 - define a `Forward` trait and implement it for `AddNode`, `MulNode`, and `TanhNode`. Then operator overloading with `std::ops::Add`. Read Book chapters 10.1-10.2 first.
-- 
+
 ### What confused me
 - overloading is tricky
+
+### What's next
+- Day 5 - Write a backward closure and box it
+
+## Session 7 - day 5 - 2026/10/12
+### What I built/learnt
+- Day 4 - implemented `Add` for `&AddNode` for by-reference add as it will won't take ownership of variables 
+
+### What confused me
+- `Vec` needs `Box` to have a fixed size pointer to a variable sized object in the heap.
+- Generics fix the type per call, not per function, so a Vec<T> can’t mix node types. Mixing needs Box<dyn Forward>.
+- Current `Add` throws away references to its inputs, a gradient slot, and a backward action
 
 ### What's next
 - Day 5 - Write a backward closure and box it
